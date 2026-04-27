@@ -23,7 +23,7 @@ The notebook `nlp/Reviews_Analysis.ipynb` performs:
 ### Output 
 Below is the sentiment distribution chart generated in the notebook:
 
-![Guest Satisfaction Level](files/nlp/chart.png)
+![Guest Satisfaction Level](nlp/chart.png)
 
 
 ## How to Run
