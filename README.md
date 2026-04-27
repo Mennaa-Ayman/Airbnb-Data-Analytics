@@ -20,12 +20,11 @@ The notebook `nlp/Reviews_Analysis.ipynb` performs:
 - Classifying reviews into **Positive / Neutral / Negative**.
 - Plotting the distribution of sentiment.
 
-### Output (Example)
+### Output 
 Below is the sentiment distribution chart generated in the notebook:
 
-![Guest Satisfaction Level](files/nlp/sentiment_chart.png)
+![Guest Satisfaction Level](files/nlp/chart.png)
 
-> If you don’t see the image, make sure `files/nlp/sentiment_chart.png` exists in the repo. You can generate it by running the notebook (it saves `sentiment_chart.png`).
 
 ## How to Run
 1. Clone the repository:
