@@ -26,7 +26,7 @@ The notebook `nlp/Reviews_Analysis.ipynb` performs:
 ### Output 
 Below is the sentiment distribution chart generated in the notebook:
 
-![Guest Satisfaction Level](plots/Reviews_chart.png)
+![Guest Satisfaction Level](Plots/Reviews_chart.png)
 
 
 ## How to Run
@@ -38,7 +38,7 @@ Below is the sentiment distribution chart generated in the notebook:
 2. (Recommended) Create and activate a virtual environment.
 3. Install dependencies:
    ```bash
-   pip install requirements.txt
+   pip install -r requirements.txt
    ```
 4. Open and run notebooks:
    ```bash
