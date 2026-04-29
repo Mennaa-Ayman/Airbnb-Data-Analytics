@@ -1,6 +1,8 @@
 import streamlit as st
 from utils.data_loader import get_uncleaned_data, get_uncleaned_reviews
 
+st.set_page_config(page_title="Home", page_icon=":material/home:", layout="wide")
+
 st.title("My Dashboard")
 st.write("Hello, Welcome to the Airbnb Data Analytics App!")
 

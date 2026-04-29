@@ -5,6 +5,8 @@ from streamlit_folium import st_folium
 from streamlit_js_eval import get_geolocation
 from geopy.geocoders import ArcGIS
 
+st.set_page_config(page_title="Price Predictor", page_icon=":material/dashboard:", layout="wide")
+
 st.title("Enter your listing information")
 
 def inline_number_input(label, min_val=0, step=1):

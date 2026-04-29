@@ -1,10 +1,9 @@
 import streamlit as st
-import pandas as pd
-from PIL import Image
 import streamlit.components.v1 as components
-import os
 
 from utils.data_loader import get_cleaned_data, get_cleaned_reviews, get_heatmap, get_plot_image
+
+st.set_page_config(page_title="Data Analytics", page_icon=":material/analytics:", layout="wide")
 
 st.title("Cairo Airbnb Analytics Dashboard")
 
@@ -13,9 +12,14 @@ st.markdown("This is the cleaned Airbnb rentals dataset.")
 
 try:
     df = get_cleaned_data()
-    col1, col2 = st.columns(2)
+    avg_price = df['price_total'].mean()
+    avg_rating = df['rating_overall'].mean()
+    col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Rows", df.shape[0])
     col2.metric("Total Columns", df.shape[1])
+    col3.metric("Average Price", f"EGP {avg_price:,.2f}")
+    col4.metric("Average Rating", f"{avg_rating:.2f}")
+
     st.dataframe(df, width="stretch") 
 except FileNotFoundError:
     st.error(f"Could not find the dataset of the rentals. Please check the path.")
