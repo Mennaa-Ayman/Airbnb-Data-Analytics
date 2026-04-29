@@ -74,7 +74,7 @@ def get_reviews_ui(driver, wait):
 
 def main():
     # Load your scraped data
-    json_path = os.path.join(os.path.dirname(__file__), 'Airbnbdata.json')
+    json_path = os.path.join(os.path.dirname(__file__), r'..\\Data\\clean\\airbnbdata.json')
     if not os.path.exists(json_path):
         print(f"Could not find {json_path}")
         return
