@@ -1,9 +1,11 @@
 import streamlit as st
+import pandas as pd
 import folium
 import requests
 from streamlit_folium import st_folium
 from streamlit_js_eval import get_geolocation
 from geopy.geocoders import ArcGIS
+from utils.data_loader import get_prediction_model
 
 st.set_page_config(page_title="Price Predictor", page_icon=":material/dashboard:", layout="wide")
 
@@ -29,7 +31,7 @@ def inline_selectbox(label, options):
         st.markdown(f"<div style='margin-top: 10px;'><b>{label}</b></div>", unsafe_allow_html=True)
     with input_col:
         return st.selectbox(label, options=options, label_visibility="collapsed")
-
+    
 st.subheader("Property Details")
 bedrooms = inline_number_input("Number of bedrooms", min_val=0, step=1)
 bathrooms = inline_number_input("Number of bathrooms", min_val=0, step=1)
@@ -135,23 +137,24 @@ if "predicted_price" not in st.session_state:
     st.session_state.predicted_price = None
 
 if st.button("Predict Price", type="primary", use_container_width=True):
-    model_inputs = {
+    price_predictor, expected_features = get_prediction_model()
+
+    raw_inputs = {
+        "lat": st.session_state.lat,
+        "lng": st.session_state.lon,
+        "rating_overall": 0, 
+        "reviews_count": 0,   
         "bedrooms": bedrooms,
         "bathrooms": bathrooms,
-        "has_wifi": has_wifi,            
-        "has_pool": has_pool,
-        "has_pyramid_view": has_pyramid_view,
-        "description": description,
         "description_length": description_length,
-        "latitude": st.session_state.lat,
-        "longitude": st.session_state.lon             
+        "has_wifi": bool(has_wifi),
+        "has_pool": bool(has_pool)
     }
     
     with st.spinner("Calculating optimal price..."):
-        # TODO: add the real model here
-        import time
-        time.sleep(1.5)
-        st.session_state.predicted_price = 1250.00
+        input_df = pd.DataFrame([raw_inputs], columns=expected_features)
+        prediction = price_predictor.predict(input_df)[0]
+        st.session_state.predicted_price = float(prediction)
         
 if st.session_state.predicted_price is not None:
     st.success("Prediction Complete!")
