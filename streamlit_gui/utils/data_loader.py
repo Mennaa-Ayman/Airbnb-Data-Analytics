@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import joblib
+import json
 
 from pathlib import Path
 from PIL import Image
@@ -7,7 +9,7 @@ from PIL import Image
 @st.cache_data
 def get_uncleaned_data():
     current_dir = Path(__file__).parent
-    file_path = current_dir / ".." / ".." / "Data" / "raw" / "airbnb_processed.csv"
+    file_path = current_dir / ".." / ".." / "Data" / "raw" / "airbnb_merged.csv"
     return pd.read_csv(file_path.resolve())
 
 
@@ -49,3 +51,16 @@ def get_plot_image(filename):
         return Image.open(file_path.resolve())
     except FileNotFoundError:
         return None
+    
+
+@st.cache_resource
+def get_prediction_model():
+    current_dir = Path(__file__).parent
+    model_path = current_dir / ".." / ".." / "Models" / "Models" / "xgboost_model_v2.pkl"
+    features_path = current_dir / ".." / ".." / "Models" / "Models" / "feature_columns.json"
+    
+    model = joblib.load(model_path.resolve())
+    with open(features_path.resolve(), 'r') as f:
+        features = json.load(f)
+        
+    return model, features
