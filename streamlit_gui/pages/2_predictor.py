@@ -7,6 +7,47 @@ from geopy.geocoders import ArcGIS
 
 st.title("Enter your listing information")
 
+def inline_number_input(label, min_val=0, step=1):
+    label_col, input_col = st.columns([1, 2]) 
+    
+    with label_col:
+        st.markdown(f"<div style='margin-top: 10px;'><b>{label}</b></div>", unsafe_allow_html=True)
+        
+    with input_col:
+        return st.number_input(
+            label, 
+            min_value=min_val, 
+            step=step, 
+            label_visibility="collapsed"
+        )
+    
+def inline_selectbox(label, options):
+    label_col, input_col = st.columns([1, 2])
+    with label_col:
+        st.markdown(f"<div style='margin-top: 10px;'><b>{label}</b></div>", unsafe_allow_html=True)
+    with input_col:
+        return st.selectbox(label, options=options, label_visibility="collapsed")
+
+st.subheader("Property Details")
+bedrooms = inline_number_input("Number of bedrooms", min_val=0, step=1)
+bathrooms = inline_number_input("Number of bathrooms", min_val=0, step=1)
+
+st.subheader("Amenities & Views")
+col1, col2, col3 = st.columns(3)
+with col1:
+    has_wifi = st.checkbox("WiFi")
+with col2:
+    has_pool = st.checkbox("Pool")
+with col3:
+    has_pyramid_view = st.checkbox("Pyramid View")
+
+st.subheader("Description")
+description = st.text_area("Write your listing description here:", height=100)
+description_length = len(description)
+st.caption(f"**Calculated Description Length:** {description_length} characters")
+
+st.divider()
+
 if 'lat' not in st.session_state:
     st.session_state.lat = 30.0444
 if 'lon' not in st.session_state:
@@ -83,4 +124,37 @@ def render_interactive_map():
             st.rerun()
 
 render_interactive_map()
-st.success(f"Current Selection: {st.session_state.lat:.4f}, {st.session_state.lon:.4f}")
+
+st.divider()
+st.subheader("Price Prediction")
+st.markdown("Ready to see how much this listing could make?")
+
+if "predicted_price" not in st.session_state:
+    st.session_state.predicted_price = None
+
+if st.button("Predict Price", type="primary", use_container_width=True):
+    model_inputs = {
+        "bedrooms": bedrooms,
+        "bathrooms": bathrooms,
+        "has_wifi": has_wifi,            
+        "has_pool": has_pool,
+        "has_pyramid_view": has_pyramid_view,
+        "description": description,
+        "description_length": description_length,
+        "latitude": st.session_state.lat,
+        "longitude": st.session_state.lon             
+    }
+    
+    with st.spinner("Calculating optimal price..."):
+        # TODO: add the real model here
+        import time
+        time.sleep(1.5)
+        st.session_state.predicted_price = 1250.00
+        
+if st.session_state.predicted_price is not None:
+    st.success("Prediction Complete!")
+    st.metric(label="Suggested Nightly Price", value=f"EGP {st.session_state.predicted_price:,.2f}")
+    
+    if st.button("Clear Prediction"):
+        st.session_state.predicted_price = None
+        st.rerun()
