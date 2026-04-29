@@ -52,14 +52,6 @@ st.divider()
 st.header("Key Insights & Plots")
 st.markdown("Select a tab below to view different cuts of the data.")
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "Price Distribution", 
-    "Rating vs Price", 
-    "Reviews Overview", 
-    "Reviews vs Discount", 
-    "Review Count vs Price"
-])
-
 def display_plot(filename):
     img = get_plot_image(filename)
     if img:
@@ -69,17 +61,27 @@ def display_plot(filename):
     else:
         st.error(f"Image `{filename}` not found.")
 
-with tab1:
-    display_plot("Price_Distribution.png")
 
-with tab2:
-    display_plot("Rating_Vs_Price.png")
+st.header("Key Insights & Plots")
+st.markdown("Select a tab below to view different insights of the data.")
 
-with tab3:
-    display_plot("Reviews_chart.png")
+plot_files = {
+    "Price Distribution": "Price_Distribution.png",
+    "Rating vs Price": "Rating_Vs_Price.png",
+    "Reviews Overview": "Reviews_chart.png",
+    "Reviews vs Discount": "Reviews_Vs_discount.png",
+    "Review Count vs Price": "reviewsCount_Vs_Price.png",
+    "Price by Amenity": "price_by_amenity.png",
+    "Price by Pyramid View": "price_by_pyramid_view.png",
+    "Price vs Bathrooms": "price_vs_bathrooms.png",
+    "Price vs Bedrooms": "price_vs_bedrooms.png",
+    "Rating by Amenity": "rating_by_amenity.png",
+    "Rating by Pyramid View": "rating_by_pyramid_view.png",
+    "Top 10 Reviews": "top10_reviews.png"
+}
 
-with tab4:
-    display_plot("Reviews_Vs_discount.png")
+tabs = st.tabs(list(plot_files.keys()))
 
-with tab5:
-    display_plot("reviewsCount_Vs_Price.png")
+for tab, (title, filename) in zip(tabs, plot_files.items()):
+    with tab:
+        display_plot(filename)
