@@ -35,7 +35,7 @@ try:
             st.subheader(property_data['title'])
         
         col1, col2, col3 = st.columns(3)
-        col1.metric("Price (Total)", f"EGP {property_data['price_total']:,.2f}")
+        col1.metric("Price (Total)", f"EGP {property_data['price_breakdown_baseprice_price']:,.2f}")
         col2.metric("Overall Rating", f"{property_data['rating_overall']} :material/star:")
         col3.metric("Reviews Count", int(property_data['reviews_count']))
         

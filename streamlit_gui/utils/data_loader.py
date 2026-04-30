@@ -9,7 +9,7 @@ from PIL import Image
 @st.cache_data
 def get_uncleaned_data():
     current_dir = Path(__file__).parent
-    file_path = current_dir / ".." / ".." / "Data" / "raw" / "airbnb_merged.csv"
+    file_path = current_dir / ".." / ".." / "Data" / "raw" / "Uncleaned_data.csv"
     return pd.read_csv(file_path.resolve())
 
 
@@ -56,7 +56,7 @@ def get_plot_image(filename):
 @st.cache_resource
 def get_prediction_model():
     current_dir = Path(__file__).parent
-    model_path = current_dir / ".." / ".." / "Models" / "Models" / "xgboost_model_v2.pkl"
+    model_path = current_dir / ".." / ".." / "Models" / "Models" / "random_forest.pkl"
     features_path = current_dir / ".." / ".." / "Models" / "Models" / "feature_columns.json"
     
     model = joblib.load(model_path.resolve())
