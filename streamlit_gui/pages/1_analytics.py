@@ -12,7 +12,7 @@ st.markdown("This is the cleaned Airbnb rentals dataset.")
 
 try:
     df = get_cleaned_data()
-    avg_price = df['price_total'].mean()
+    avg_price = df['price_breakdown_baseprice_price'].mean()
     avg_rating = df['rating_overall'].mean()
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Total Rows", df.shape[0])
@@ -66,11 +66,10 @@ st.header("Key Insights & Plots")
 st.markdown("Select a tab below to view different insights of the data.")
 
 plot_files = {
-    "Price Distribution": "Price_Distribution.png",
-    "Rating vs Price": "Rating_Vs_Price.png",
-    "Reviews Overview": "Reviews_chart.png",
-    "Reviews vs Discount": "Reviews_Vs_discount.png",
-    "Review Count vs Price": "reviewsCount_Vs_Price.png",
+    "Price Distribution": "price_distribution.png",
+    "Rating vs Price": "price_vs_ratings.png",
+    "Reviews Overview": "reviews_distribution.png",
+    "Review Count vs Price": "price_vs_reviews.png",
     "Price by Amenity": "price_by_amenity.png",
     "Price by Pyramid View": "price_by_pyramid_view.png",
     "Price vs Bathrooms": "price_vs_bathrooms.png",
