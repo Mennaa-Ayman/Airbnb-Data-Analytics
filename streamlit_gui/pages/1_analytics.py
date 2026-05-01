@@ -71,12 +71,10 @@ plot_files = {
     "Reviews Overview": "reviews_distribution.png",
     "Review Count vs Price": "price_vs_reviews.png",
     "Price by Amenity": "price_by_amenity.png",
-    "Price by Pyramid View": "price_by_pyramid_view.png",
-    "Price vs Bathrooms": "price_vs_bathrooms.png",
     "Price vs Bedrooms": "price_vs_bedrooms.png",
     "Rating by Amenity": "rating_by_amenity.png",
-    "Rating by Pyramid View": "rating_by_pyramid_view.png",
-    "Top 10 Reviews": "top10_reviews.png"
+    "Top 10 Reviews": "top10_reviews.png",
+    "Price by Sentiment": "sentiment_price.png"
 }
 
 tabs = st.tabs(list(plot_files.keys()))
