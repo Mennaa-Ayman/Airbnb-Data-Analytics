@@ -61,10 +61,19 @@ try:
                 
                 property_reviews = df_reviews[df_reviews['room_id'] == target_room_id]
                 
+
                 if not property_reviews.empty:
-                    top_positive = property_reviews.sort_values(by='sentiment_score', ascending=False).head(3)
-                    top_negative = property_reviews.sort_values(by='sentiment_score', ascending=True).head(3)
+                    # True positive/negative based on 0 threshold
+                    top_positive = property_reviews[property_reviews['sentiment_score'] > 0].sort_values('sentiment_score', ascending=False).head(3)
+                    top_negative = property_reviews[property_reviews['sentiment_score'] < 0].sort_values('sentiment_score', ascending=True).head(3)
                     
+                    # Handle case where no negative reviews exist
+                    if top_negative.empty:
+                        st.write("No negative reviews found for this property.")
+                    else:
+                        st.dataframe(top_negative)
+
+
                     rev_col1, rev_col2 = st.columns(2)
                     
                     with rev_col1:
