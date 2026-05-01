@@ -18,16 +18,28 @@ def inline_number_input(label, min_val=0, step=1, value=0):
     with input_col:
         return st.number_input(
             label,
-            min_value=min_val,
-            step=step,
-            value=value,
+            min_value=float(min_val),
+            step=float(step),
+            value=float(value),
             label_visibility="collapsed"
         )
 
 # ── Property Details ─────────────────────────────────────────────────
 st.subheader("Property Details")
 bedrooms  = inline_number_input("Number of bedrooms",  min_val=0, step=1)
-bathrooms = inline_number_input("Number of bathrooms", min_val=0, step=1)
+# bathrooms = inline_number_input("Number of bathrooms", min_val=0, step=0.5)
+
+# Show bathroom input per bedroom dynamically
+total_bathrooms = 0
+if bedrooms > 0:
+    st.write("**Bathrooms per bedroom:**")
+    for i in range(int(bedrooms)):
+        baths = inline_number_input(f"Bedroom {i+1} bathrooms", min_val=0, step=0.5)
+        total_bathrooms += baths
+else:
+    total_bathrooms = inline_number_input("Number of bathrooms", min_val=0, step=0.5)
+
+st.write(f"Total bathrooms: **{total_bathrooms}**")
 
 # ── Ratings & Reviews ────────────────────────────────────────────────
 st.subheader("Ratings & Reviews")
@@ -154,7 +166,7 @@ if st.button("Predict Price", type="primary", use_container_width=True):
         "checkout_day":       checkout_date.day,
         "checkout_weekday":   checkout_date.weekday(),
         "bedrooms":           bedrooms,
-        "bathrooms":          bathrooms,
+        "bathrooms":          bedrooms,
         "description_length": 0,
         "has_wifi":           bool(has_wifi),
         "has_pool":           bool(has_pool)
@@ -166,7 +178,7 @@ if st.button("Predict Price", type="primary", use_container_width=True):
 
 if st.session_state.predicted_price is not None:
     st.success("Prediction Complete!")
-    st.metric(label="Suggested Price", value=f"EGP {st.session_state.predicted_price:,.2f}")
+    st.metric(label="Suggested Price", value=f"$ {st.session_state.predicted_price:,.2f}")
     if st.button("Clear Prediction"):
         st.session_state.predicted_price = None
         st.rerun()
