@@ -49,7 +49,6 @@ try:
         c1, c2, c3 = st.columns(3)
         c1.write(f"**WiFi:** {'Yes' if property_data['has_wifi'] else 'No'}")
         c2.write(f"**Pool:** {'Yes' if property_data['has_pool'] else 'No'}")
-        c3.write(f"**Pyramid View:** {'Yes' if property_data['has_pyramid_view'] else 'No'}")
 
         st.divider()
 

@@ -65,8 +65,6 @@ with col1:
     has_wifi         = st.checkbox("WiFi")
 with col2:
     has_pool         = st.checkbox("Pool")
-with col3:
-    has_pyramid_view = st.checkbox("Pyramid View")
 
 st.divider()
 
@@ -159,9 +157,8 @@ if st.button("Predict Price", type="primary", use_container_width=True):
         "bathrooms":          bathrooms,
         "description_length": 0,
         "has_wifi":           bool(has_wifi),
-        "has_pool":           bool(has_pool),
-        "has_pyramid_view":   bool(has_pyramid_view),
-    }
+        "has_pool":           bool(has_pool)
+        }
     with st.spinner("Calculating optimal price..."):
         input_df = pd.DataFrame([inputs], columns=expected_features)
         prediction = price_predictor.predict(input_df)[0]
