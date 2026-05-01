@@ -166,7 +166,7 @@ if st.button("Predict Price", type="primary", use_container_width=True):
         "checkout_day":       checkout_date.day,
         "checkout_weekday":   checkout_date.weekday(),
         "bedrooms":           bedrooms,
-        "bathrooms":          bedrooms,
+        "bathrooms":          total_bathrooms,
         "description_length": 0,
         "has_wifi":           bool(has_wifi),
         "has_pool":           bool(has_pool)
