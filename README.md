@@ -1,13 +1,14 @@
 # Airbnb Data Analytics
 
-Data analysis project for **Airbnb Cairo rentals**. The repository explores rental features, ratings, review sentiment, and pricing to better understand guest experience, market behavior and optimize rental pricing strategies.
+Data analysis project for **Airbnb Cairo rentals**. The repository explores rental features, ratings, review sentiment, and pricing to better understand **guest experience**, **market behavior** and **optimize rental pricing strategies**.
 
-## Project Overview
-- Loading rentals records using **Apify Airbnb Scrapper** and **Selenium** for extracting reviews and more rental features
-- Data Cleaning and features Extraction from rental description and title using **ollama** and boolean features using `Spacy`
-- Perform **NLP / sentiment analysis** on guest reviews
-- Generate charts and heatmaps to visualize sentiment, pricing, and feature distributions
-- Price Prediction ML model for understanding market behavior and optimize rental pricing strategies
+## Features
+- Loading rentals records using **Apify Airbnb Scrapper**, then using **Selenium** for extracting reviews and more rental features
+- Data cleaning — handling missing values, formatting inconsistencies, and filtering irrelevant features
+- Features Extraction from rental description and title using **ollama** and boolean features extraction using **`Spacy`**
+- Generate **charts** and **heatmaps** to visualize sentiment, pricing, and feature distributions
+- Perform **sentiment analysis** on guest reviews
+- **Regression model** to predict rental prices
 
 ## Repository Structure
 - `Data/` — datasets used in the analysis (raw/cleaned).
@@ -15,8 +16,9 @@ Data analysis project for **Airbnb Cairo rentals**. The repository explores rent
 - `Cleaning/` — cleaning scrabbed data (e.g., handling nulls, filtering columns, handling datatypes)
 - `nlp/` — NLP notebooks (e.g., features extraction from rental description text, reviews analysis).
 - `Analysis/` — Prices analysis with location, ratings and rental features.
+- `Plots/`  — Analysis outputs
 - `Models/` — Regression models for predicting price based on rental features.
-
+- `Streamlit_Gui/` — Dashboard for presenting the data cleaning and using the model
 
 ## How to Run
 1. Clone the repository:
